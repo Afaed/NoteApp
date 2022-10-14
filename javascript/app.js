@@ -28,9 +28,41 @@ app.get("/", function (req, res) {
     }
 })
 
+app.post('/update', (req, res) => {
+    var noteId = req.body.noteId;
+    var noteContent = req.body.noteContent;
+
+    notes.forEach(note => {
+        if (note.noteId == noteId) {
+            note.noteContent = noteContent;
+        }
+    })
+
+    res.render("home", {
+        data: notes
+    })
+})
+
 //This is for the notes portion
 
 const notes = [{
     noteId: 1,
     noteContent: "This is a note."
 }]
+
+//to delete note
+
+app.post('/delete', (req, res) => {
+    var noteId = req.body.noteIdl
+    var i = 0;
+
+    notes.forEach(note => {
+        i = i + 1;
+        if(note.noteId == noteId) {
+            notes.splice((j-1), 1)
+        }
+    })
+    res.render("home", {
+        data: notes
+    })
+})
